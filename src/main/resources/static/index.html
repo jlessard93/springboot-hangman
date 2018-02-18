@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="hangmanApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>hangman</title>
+		
+		<script src="/webjars/angularjs/1.6.4/angular.js"></script>
+		<script src="/webjars/angularjs/1.6.4/angular-resource.js"></script>
+		<script src="/webjars/angularjs/1.6.4/angular-route.js"></script>
+		
+		<script src="/js/hangmanApp.js"></script>
+		<script src="/js/hangmanController.js"></script>
+		<script src="/js/hangmanResourceSvc.js"></script>
+		
+		<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.css">
+		
+		
+	</head>
+	<body ng-controller="HangmanController" style="background-color: #000000; color: #FFFFFF">
+		
+		
+		<div class="container" style="padding: 7% 10% 5% 10%;">
+			<h2 style="font-size: 300%;">Guess the Word!</h2>
+			<button style="color: #000000;" ng-click="startNewGame()">New Game</button>
+			<br>
+			<br>
+			<br>
+			<h2>Chances left: {{hangman.chances}}</h2>
+			<h2>Letters used: {{guessedLetterArr.join(" ")}}</h2>
+			
+			<div ng-if="loser == true">
+				<br>
+				<h2>SORRY YOU LOST ='( </h2>
+				<br>
+			</div>
+			<div ng-if="winner == true">
+				<br>
+				<h2>YOU GUESSED THE RIGHT WORD!</h2>
+				<br>
+			</div>
+			
+			
+			<div class="text-center">
+				<h2 style="font-size: 700%;">{{hangmanLetters.join(" ")}}</h2>
+			</div>
+			
+		</div>
+		
+		<div class="container" style="padding: 0% 10% 10% 10%;">
+			<div class="text-center">
+				<button ng-disabled="loser == true || winner == true" style="color: #000000;" ng-click="guess()">Guess</button>
+				<input ng-disabled="loser == true || winner == true" style="color: #000000;" ng-model="guessedLetter">
+			</div>
+		</div>
+		
+		
+	</body>
+</html>
+
+
+
+

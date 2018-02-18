@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="hangmanAppMngr">
+	<head>
+		<meta charset="UTF-8">
+		<title>hangman management</title>
+		
+		<script src="/webjars/angularjs/1.6.4/angular.js"></script>
+		<script src="/webjars/angularjs/1.6.4/angular-resource.js"></script>
+		<script src="/webjars/angularjs/1.6.4/angular-route.js"></script>
+		
+		<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.css">
+
+		<script src="/js/mgmt/hangmanAppMngr.js"></script>
+		<script src="/js/mgmt/hangmanMngrCtrl.js"></script>
+		<script src="/js/mgmt/hangmanMngrResrcSvc.js"></script>		
+
+	</head>
+	<body ng-controller="HangmanMngrCtrl" style="background-color: #000000; color: #FFFFFF">
+		
+		<div class="container" style="padding: 7%;">
+			<h2 style="font-size: 350%;">Hangman Management Page</h2>
+			<br>
+			<h2 style="font-size: 200%;">Current number of games started: {{numOfStartedGames}}</h2>
+			<br>
+			<br>
+			<br>
+			<table class="table table-inverse">
+				
+				<thead class="thead-inverse">
+					 <tr>
+				      <th>ID</th>
+				      <th>Category</th>
+				      <th>Hangman Word</th>
+				      <th>Game State</th>
+				      <th>Player Status</th>
+				      <th>Player IP</th>
+				    </tr>
+				</thead>
+				
+				<tbody>
+					<tr ng-repeat="report in fullReport">
+				      <td>{{report.id}}</td>
+				      <td>{{report.hangmanCategory}}</td>
+				      <td>{{report.hangmanValue}}</td>
+				      <td>{{report.state}}</td>
+				      <td>{{report.playerStatus}}</td>
+				      <td>{{report.playerIpAddress}}</td>
+				    </tr>
+				</tbody>
+				
+			</table>
+			
+		</div>
+		
+		
+	</body>
+</html>
+
+
+
+

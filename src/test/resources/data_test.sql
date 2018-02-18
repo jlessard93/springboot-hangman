@@ -1,0 +1,12 @@
+
+--for create-drop properties
+
+DELETE FROM HANGMAN_MGMT_TABLE;
+
+INSERT INTO HANGMAN_TABLE (CATEGORY, VALUE) VALUES
+  ('ALCOHOL', 'WHISKEY'),
+  ('ALCOHOL', 'GIN'),
+  ('ALCOHOL', 'TEQUILA'),
+  ('ALCOHOL', 'VODKA'),
+  ('ALCOHOL', 'RUM'),
+  ('ALCOHOL', 'WINE');
