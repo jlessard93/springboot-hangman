@@ -15,4 +15,4 @@ Players are able to access a Management Page and see all the games that have bee
 
 Error notifications are also rendered when the player triggers an action which results in a server failure.
 
-The program should keeps the current game state persistent across server and browser re-starts.
+The program keeps the current game state persistent across server and browser re-starts.
