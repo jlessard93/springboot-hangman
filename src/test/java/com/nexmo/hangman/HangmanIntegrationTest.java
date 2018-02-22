@@ -3,6 +3,8 @@ package com.nexmo.hangman;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -97,25 +100,6 @@ public class HangmanIntegrationTest {
 		initialNewGame();
 	}
 	
-	@Test
-	public void guessWordApiTest() {
-		
-		AnswerDto answer = new AnswerDto();
-		answer.setGuessWordId(4l); //GUESS WORD WILL BE VODKA
-		answer.setGuessLetter("v");
-		
-		ResponseEntity<AnswerDto> responseEntity = restTemplate.postForEntity(HANGMAN_API_GUESSWORD, answer, AnswerDto.class);
-		assertNotNull(responseEntity);
-		answer = responseEntity.getBody();
-		assertTrue(answer.isCorrectAnswer());
-		
-		answer.setGuessLetter("zzz");
-		responseEntity = restTemplate.postForEntity(HANGMAN_API_GUESSWORD, answer, AnswerDto.class);
-		assertNotNull(responseEntity);
-		answer = responseEntity.getBody();
-		assertTrue(answer.isCorrectAnswer() == false);
-		
-	}
 
 }
 

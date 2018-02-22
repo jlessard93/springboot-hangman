@@ -38,7 +38,6 @@ hangmanApp.controller('HangmanController', function($scope, $http, $resource, Ha
 		});
 	}
 	
-	
 	//START OF GAME
 	
 	$scope.guessedLetter = "";
@@ -48,8 +47,6 @@ hangmanApp.controller('HangmanController', function($scope, $http, $resource, Ha
 	$scope.winner = false;
 	$scope.loser = false;
 	
-	// NOT WORKING!!
-	// MUST UPDATE STATUS WHEN PLAYER WINS THE GAME!!
 	var arrIndices;
 	
 	HangmanResourceSvc.newGame.get(function(result){
@@ -63,8 +60,6 @@ hangmanApp.controller('HangmanController', function($scope, $http, $resource, Ha
 			$scope.hangmanLetters.push("_");
 		}
 		
-		// NOT WORKING!!
-		// MUST UPDATE STATUS WHEN PLAYER WINS THE GAME!!
 		if(result.correctGuessedLetters != null && result.correctGuessedLetters.length > 0) {
 			var y;
 			var arrCorrectLetters = result.correctGuessedLetters.split('');
@@ -75,6 +70,10 @@ hangmanApp.controller('HangmanController', function($scope, $http, $resource, Ha
 				correctIndex = arrIndices[y];
 				correctLetter = arrCorrectLetters[y];
 				$scope.hangmanLetters[correctIndex] = correctLetter;
+			}
+			
+			if(arrIndices != null && arrIndices.length > 0) {
+				answerObj.prevLetterIndexList = arrIndices;
 			}
 		}
 		
@@ -102,12 +101,6 @@ hangmanApp.controller('HangmanController', function($scope, $http, $resource, Ha
 		
 		answerObj.guessLetter = $scope.guessedLetter;
 		answerObj.guessWordId = $scope.guessWordId;
-		
-		// NOT WORKING!!
-		// MUST UPDATE STATUS WHEN PLAYER WINS THE GAME!!
-		if(arrIndices != null && arrIndices.length > 0) {
-			answerObj.prevLetterIndexList = arrIndices;
-		}
 		
 		HangmanResourceSvc.guess.process(answerObj).$promise.then(function(result){
 			

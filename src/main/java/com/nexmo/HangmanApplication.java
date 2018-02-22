@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.WebApplicationInitializer;
 
 import com.nexmo.dto.HangmanSessionBean;
+import com.nexmo.filters.CookieSetter;
 import com.nexmo.filters.GuessLetterFilter;
 
 
@@ -38,7 +39,7 @@ public class HangmanApplication implements WebApplicationInitializer {
 	}
 
 	@Bean
-	public FilterRegistrationBean someFilterRegistration() {
+	public FilterRegistrationBean guessLetterFilterRegistration() {
 	    FilterRegistrationBean registration = new FilterRegistrationBean();
 	    registration.setFilter(guessLetterFilter());
 	    registration.addUrlPatterns("/api/v1/hangman/guessword");
@@ -47,21 +48,23 @@ public class HangmanApplication implements WebApplicationInitializer {
 	}
 	
 	@Bean
+	public FilterRegistrationBean cookieSetterRegistration() {
+	    FilterRegistrationBean registration = new FilterRegistrationBean();
+	    registration.setFilter(cookieSetterFilter());
+	    registration.addUrlPatterns("/api/v1/hangman/*");
+	    registration.setName("cookieSetterFilter");
+	    return registration;
+	}
+	
+	@Bean
+	public CookieSetter cookieSetterFilter() {
+		return new CookieSetter();
+	}
+	
+	@Bean
 	public GuessLetterFilter guessLetterFilter() {
 		return new GuessLetterFilter();
 	}
-	
-	//MANAGEMENT PAGE IS ONLY ACCESSIBLE BY THE MACHINE IN WHICH THE JAR IS DEPLOYED/RAN
-//	@Bean
-//	public FilterRegistrationBean remoteAddressFilter() {
-//		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-//		RemoteAddrFilter filter = new RemoteAddrFilter();
-//		filter.setAllow("127.0.1.1");
-//		filterRegistrationBean.setFilter(filter);
-//		filterRegistrationBean.addUrlPatterns("/hangman/management");
-//		return filterRegistrationBean;
-//	}
-	
 	
 	
 }
