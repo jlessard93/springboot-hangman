@@ -1,14 +1,11 @@
 package com.nexmo.services;
 
-import java.util.List;
-
 import com.nexmo.dto.HangmanMgmtDto;
 import com.nexmo.entities.HangmanMgmt;
 import com.nexmo.entities.HangmanWord;
 import com.nexmo.entities.PlayerData;
-import com.nexmo.entities.PlayerData;
-import com.nexmo.entities.PlayerData;
-import com.nexmo.entities.PlayerData;
+
+import java.util.List;
 
 public interface HangmanManagerSvc {
 	

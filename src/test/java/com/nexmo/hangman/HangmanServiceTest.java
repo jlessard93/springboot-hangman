@@ -1,12 +1,13 @@
 package com.nexmo.hangman;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.nexmo.dto.AnswerDto;
+import com.nexmo.dto.HangmanDto;
+import com.nexmo.dto.HangmanSessionBean;
+import com.nexmo.entities.HangmanWord;
+import com.nexmo.exceptions.HangmanException;
+import com.nexmo.services.HangmanManagerSvc;
+import com.nexmo.services.HangmanSvcImpl;
+import com.nexmo.util.HangmanConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,21 +15,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.nexmo.dto.AnswerDto;
-import com.nexmo.dto.HangmanDto;
-import com.nexmo.dto.HangmanSessionBean;
-import com.nexmo.entities.HangmanWord;
-import com.nexmo.entities.PlayerData;
-import com.nexmo.exceptions.HangmanException;
-import com.nexmo.services.HangmanManagerSvc;
-import com.nexmo.services.HangmanSvcImpl;
-import com.nexmo.util.HangmanConstants;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 //@SpringBootTest
@@ -61,30 +59,30 @@ public class HangmanServiceTest {
 		assertNotNull(hangmanDto);
 		assertTrue(hangmanDto.getGuessWordId().longValue() == 1l || hangmanDto.getGuessWordId().longValue() == 2l
 				|| hangmanDto.getGuessWordId().longValue() == 3l);
-		assertTrue(hangmanDto.getChances() == HangmanConstants.DEFAULT_CHANCES);
+		assertEquals(HangmanConstants.DEFAULT_CHANCES, hangmanDto.getChances());
 	}
 	
 	@Test
 	public void processAnswerTest() throws HangmanException {
-		
+
 		hangmanSessionBean.setSessionId("1");
-		
-		Long sampleId = new Long(1l);
+
+		Long sampleId = 1l;
 		String guessLetter = "s";
-		
+
 		when(mockedHangmanManagerSvc.getGuessWordById(sampleId)).thenReturn(getMockedHangmanWordById(sampleId));
-		
+
 		AnswerDto answer = new AnswerDto();
 		answer.setGuessWordId(sampleId);
 		answer.setGuessLetter(guessLetter);
-		
+
 		Mockito.doNothing().when(mockedHangmanManagerSvc).registerGuessedLetters(Mockito.anyString(), Mockito.anyString());
 		mockedHangmanSvcImpl.processAnswer(answer);
-		
+
 		assertTrue(answer.isCorrectAnswer());
 		assertTrue(answer.getCorrectLetter().equalsIgnoreCase(guessLetter));
-		assertTrue(answer.getNewLetterIndexList().size() == 2);
-		
+		assertEquals(2, answer.getNewLetterIndexList().size());
+
 	}
 	
 	private HangmanWord getMockedHangmanWordById(Long id) {

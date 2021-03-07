@@ -1,8 +1,8 @@
 package com.nexmo;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-
+import com.nexmo.dto.HangmanSessionBean;
+import com.nexmo.filters.CookieSetter;
+import com.nexmo.filters.GuessLetterFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -10,9 +10,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.WebApplicationInitializer;
 
-import com.nexmo.dto.HangmanSessionBean;
-import com.nexmo.filters.CookieSetter;
-import com.nexmo.filters.GuessLetterFilter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 
 //implement WebApplicationInitializer to configure web.xml programmatically
@@ -30,7 +29,7 @@ public class HangmanApplication implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-
+		//do nothing
 	}
 	
 	@Bean

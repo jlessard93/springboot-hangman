@@ -1,7 +1,5 @@
 package com.nexmo.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,31 +8,32 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity(name = "HangmanMgmt")
 @Table(name="HANGMAN_MGMT_TABLE")
 public class HangmanMgmt implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false, name = "HANGMANMGMT_ID")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String state; //STARTED | STOPPED
-	
+
 	private String hangmanCategory; //retrieved hangman word Category
-	private String hangmanValue; //retrieved hangman word Value;
-	
+	private String hangmanValue;
+
 	private String playerStatus; //WINNER | LOSER
 	private String playerIpAddress;
-	
+
 	@OneToOne
 	@JoinColumn(name = "HANGMANWORD_ID")
 	private HangmanWord hangmanWord;
-	
+
 	public Long getId() {
 		return id;
 	}

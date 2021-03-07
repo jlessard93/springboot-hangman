@@ -1,13 +1,5 @@
 package com.nexmo.services;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.nexmo.dao.HangmanDao;
 import com.nexmo.dao.PlayerDataRepository;
 import com.nexmo.dto.HangmanMgmtDto;
@@ -15,6 +7,13 @@ import com.nexmo.entities.HangmanMgmt;
 import com.nexmo.entities.HangmanWord;
 import com.nexmo.entities.PlayerData;
 import com.nexmo.util.HangmanConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class HangmanMngrSvcImpl implements HangmanManagerSvc {
@@ -109,9 +108,7 @@ public class HangmanMngrSvcImpl implements HangmanManagerSvc {
 
 	@Override
 	public PlayerData existingActivePlayer(String sessionId) {
-		PlayerData data = playerDataRepo.findBySessionIdAndHangmanMgmtState(sessionId,
-				HangmanConstants.HANGMAN_STARTED);
-		return data;
+		return playerDataRepo.findBySessionIdAndHangmanMgmtState(sessionId, HangmanConstants.HANGMAN_STARTED);
 	}
 
 	@Override
