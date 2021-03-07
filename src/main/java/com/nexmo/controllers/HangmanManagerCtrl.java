@@ -1,39 +1,38 @@
 package com.nexmo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.nexmo.dto.HangmanMgmtDto;
 import com.nexmo.entities.HangmanWord;
 import com.nexmo.services.HangmanManagerSvc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
 @RequestMapping("/api/v1/hangman/management")
 public class HangmanManagerCtrl {
-	
+
 	@Autowired
 	private HangmanManagerSvc hangmanManagerSvc;
-	
-	
-	@RequestMapping(value={"allstartedgames"}, method = {RequestMethod.GET})
+
+
+	@GetMapping(value = {"allstartedgames"})
 	@ResponseBody
 	public HangmanMgmtDto getAllStartedGames() {
-		HangmanMgmtDto hangmanMgmtDto = hangmanManagerSvc.getAllStartedGames();
-		return hangmanMgmtDto;
+		return hangmanManagerSvc.getAllStartedGames();
 	}
-	
-	@RequestMapping(value={"allstatistics"}, method = {RequestMethod.GET})
+
+	@GetMapping(value = {"allstatistics"})
 	@ResponseBody
 	public HangmanMgmtDto getAllStatistics() {
 		return hangmanManagerSvc.getAllGameStat();
 	}
-	
-	@RequestMapping(value={"addguessword"}, method = {RequestMethod.POST})
+
+	@PostMapping(value = {"addguessword"})
 	@ResponseBody
 	public void createGuessWord(@RequestBody HangmanMgmtDto hangmanMgmtDto) {
 		HangmanWord hangmanWord = hangmanMgmtDto.getHangmanWord();
